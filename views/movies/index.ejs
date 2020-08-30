@@ -1,8 +1,8 @@
 <h2>
-    Search Directors
+    Search Movies
 </h2>
 
-<form action="/directors" method="GET">
+<form action="/movies" method="GET">
     <label>
         Name
     </label>
@@ -16,6 +16,6 @@
 
 <br>
 
-<% directors.forEach(director => { %> 
-    <div> <%= director.name %> </div>
+<% movies.forEach(movie => { %> 
+    <div> <%= movie.name %> </div>
 <% }) %> 

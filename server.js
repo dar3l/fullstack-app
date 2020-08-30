@@ -8,7 +8,7 @@ const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 
 const indexRounter = require('./routes/index')
-const directorRounter = require('./routes/directors')
+const movieRounter = require('./routes/movies')
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -31,7 +31,7 @@ db.once('open', () => console.log('connected to Mongoose'))
 
 // Router
 app.use('/', indexRounter)
-app.use('/directors', directorRounter)
+app.use('/movies', movieRounter)
 
 
 app.listen(process.env.PORT || 3000)
