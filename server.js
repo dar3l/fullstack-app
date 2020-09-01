@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 
 const indexRounter = require('./routes/index')
 const movieRounter = require('./routes/movies')
+const bookRounter = require('./routes/books')
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -32,6 +33,6 @@ db.once('open', () => console.log('connected to Mongoose'))
 // Router
 app.use('/', indexRounter)
 app.use('/movies', movieRounter)
-
+app.use('/books', bookRounter)
 
 app.listen(process.env.PORT || 3000)
