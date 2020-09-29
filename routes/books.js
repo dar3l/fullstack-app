@@ -4,7 +4,8 @@ const fs = require('fs');
 const multer = require('multer')
 
 const router = express.Router()
-const Book = require('../models/book')
+const Book = require('../models/book');
+const { query } = require('express');
 
 const uploadPath = path.join('public', Book.coverImageBasePath)
 const imageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
@@ -18,7 +19,20 @@ const upload = multer({
 
 // All Books Route
 router.get('/', async (request, response) => {
-    response.send('all book route')
+    let query = Book.find();
+    
+    if(request.query.title != null && request.query.title != ''){
+         query = query.regex('title', new RegExp(request.query.title, 'i'))
+    }
+    try{
+        const books = await query.exec()
+        response.render('books/index', { 
+            books: books, 
+            searchOptions: request.query
+        })
+    } catch{
+        response.redirect('/')
+    }
 })
 
 // New Book Route
@@ -55,7 +69,7 @@ router.post('/', upload.single('cover'), async (request, response) => {
 })
 
 function renderNewPage(response, book, hasError = false) {
-    
+ 
     const params = {
         book: book
     }
